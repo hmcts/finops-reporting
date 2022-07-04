@@ -1,4 +1,4 @@
-env = "ptlsbox"
+env = "sbox"
 
 file_upload_paths = [
   {
