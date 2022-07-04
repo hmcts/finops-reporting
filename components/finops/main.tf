@@ -1,10 +1,10 @@
 resource "azurerm_resource_group" "finopsrg" {
-  name     = "finopsdata${var.environment}rg"
+  name     = "finopsdata${var.env}rg"
   location = var.location
 }
 
 resource "azurerm_storage_account" "finopssa" {
-  name                     = "finopsdata${var.environment}sa"
+  name                     = "finopsdata${var.env}sa"
   resource_group_name      = azurerm_resource_group.finopsrg.name
   location                 = azurerm_resource_group.finopsrg.location
   account_tier             = "Standard"
@@ -20,7 +20,7 @@ resource "azurerm_storage_container" "finopssacontainer" {
 }
 
 resource "azurerm_storage_blob" "finopsblobs" {
-for_each = { for file_upload_path in var.file_upload_paths : file_upload_path.name => file_upload_path }
+  for_each = { for file_upload_path in var.file_upload_paths : file_upload_path.name => file_upload_path }
 
   name                   = each.value.name
   storage_account_name   = azurerm_storage_account.finopssa.name
@@ -31,7 +31,7 @@ for_each = { for file_upload_path in var.file_upload_paths : file_upload_path.na
 
 module "ctags" {
   source      = "git::https://github.com/hmcts/terraform-module-common-tags.git?ref=master"
-  environment = var.environment
+  environment = var.env
   product     = var.product
   builtFrom   = var.builtFrom
 }
