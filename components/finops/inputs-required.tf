@@ -1,0 +1,5 @@
+variable "environment" {}
+
+variable "file_upload_paths" {}
+
+variable "builtFrom" {} 
