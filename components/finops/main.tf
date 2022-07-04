@@ -26,7 +26,7 @@ resource "azurerm_storage_blob" "finopsblobs" {
   storage_account_name   = azurerm_storage_account.finopssa.name
   storage_container_name = azurerm_storage_container.finopssacontainer.name
   type                   = "Block"
-  source                 =  each.key
+  source                 = each.key
 }
 
 module "ctags" {
