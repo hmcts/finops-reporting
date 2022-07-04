@@ -20,13 +20,13 @@ resource "azurerm_storage_container" "finopssacontainer" {
 }
 
 resource "azurerm_storage_blob" "finopsblobs" {
-  for_each = { for file_upload_path in var.file_upload_paths : file_upload_path.name => file_upload_path }
+  for_each = fileset(path.module, "file_uploads/*")
 
-  name                   = each.value.name
+  name                   = trim(each.key, "../../file_uploads/")
   storage_account_name   = azurerm_storage_account.finopssa.name
   storage_container_name = azurerm_storage_container.finopssacontainer.name
   type                   = "Block"
-  source                 = "file_uploads/${each.value.name}"
+  source                 = each.key
 }
 
 module "ctags" {
