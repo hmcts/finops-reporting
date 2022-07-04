@@ -1,4 +1,4 @@
-environment = "ptlsbox"
+env = "ptlsbox"
 
 file_upload_paths = [
   {

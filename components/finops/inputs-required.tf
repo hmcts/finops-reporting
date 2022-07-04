@@ -1,4 +1,4 @@
-variable "environment" {}
+variable "env" {}
 
 variable "file_upload_paths" {}
 
