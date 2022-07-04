@@ -1,7 +1,7 @@
 terraform {
   required_version = ">= 1.0.10"
 
-  backend "local" {
+  backend "azurerm" {
   }
 
   required_providers {
