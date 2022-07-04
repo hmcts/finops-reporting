@@ -1,10 +1,10 @@
 resource "azurerm_resource_group" "finopsrg" {
-  name     = "finopsdata${var.environment}rg"
+  name     = "finopsdata${var.env}rg"
   location = var.location
 }
 
 resource "azurerm_storage_account" "finopssa" {
-  name                     = "finopsdata${var.environment}sa"
+  name                     = "finopsdata${var.env}sa"
   resource_group_name      = azurerm_resource_group.finopsrg.name
   location                 = azurerm_resource_group.finopsrg.location
   account_tier             = "Standard"
