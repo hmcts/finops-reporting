@@ -20,7 +20,7 @@ resource "azurerm_storage_container" "finopssacontainer" {
 }
 
 resource "azurerm_storage_blob" "finopsblobs" {
-for_each = { for file_upload_path in var.file_upload_paths : file_upload_path.name => file_upload_path }
+  for_each = { for file_upload_path in var.file_upload_paths : file_upload_path.name => file_upload_path }
 
   name                   = each.value.name
   storage_account_name   = azurerm_storage_account.finopssa.name
