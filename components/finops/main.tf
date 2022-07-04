@@ -22,7 +22,7 @@ resource "azurerm_storage_container" "finopssacontainer" {
 resource "azurerm_storage_blob" "finopsblobs" {
   for_each = fileset(path.module, "file_uploads/*")
 
-  name                   = trim(each.key, "file_uploads/")
+  name                   = trim(each.key, "../../file_uploads/")
   storage_account_name   = azurerm_storage_account.finopssa.name
   storage_container_name = azurerm_storage_container.finopssacontainer.name
   type                   = "Block"
