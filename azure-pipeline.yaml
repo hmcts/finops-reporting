@@ -48,13 +48,13 @@ parameters:
       storage_account_name: 'cftappssbox'
       dependsOn: 'Precheck'
 
-    # - deployment: 'prod_cftapps_cluster_lb'
-    #   environment: 'prod'
-    #   component: 'cftapps_cluster_lb'
-    #   service_connection: 'DTS-CFTPTL-INTSVC'
-    #   storage_account_rg: 'core-infra-prod-rg'
-    #   storage_account_name: 'cftappsprod'
-    #   dependsOn: 'sbox_frontendappgateway'
+    - deployment: 'ptl_finops_reporting'
+      environment: 'ptl'
+      component: 'finops'
+      service_connection: 'DTS-CFTPTL-INTSVC'
+      storage_account_rg: 'core-infra-intsvc-rg'
+      storage_account_name: 'cftptlintsvc'
+      dependsOn: 'sbox_finops_reporting'
 
 stages:
   - stage: Precheck
