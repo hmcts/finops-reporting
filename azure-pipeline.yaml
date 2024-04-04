@@ -56,6 +56,13 @@ parameters:
       storage_account_name: 'cftptlintsvc'
       dependsOn: 'sbox_finops_reporting'
 
+    - deployment: 'sbox_finops_law_dashboard'
+      environment: 'sbox'
+      component: 'finops-law-dashboard'
+      service_connection: 'DCD-CFTAPPS-DEV'
+      dependsOn: 'Precheck'
+
+
 stages:
   - stage: Precheck
     jobs:
