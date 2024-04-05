@@ -1,2 +1,2 @@
-environment = "nonprod"
+environment = "dev"
 
