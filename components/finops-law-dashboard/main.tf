@@ -5,6 +5,8 @@ resource "azurerm_resource_group" "finops-law-dashboard-rg" {
   tags = module.ctags.common_tags
 }
 
+data "azurerm_subscription" "current" {}
+
 resource "azurerm_portal_dashboard" "my-board" {
   name                 = "my-cool-dashboard"
   resource_group_name  = azurerm_resource_group.finops-law-dashboard-rg.name
