@@ -57,7 +57,7 @@ parameters:
       dependsOn: 'sbox_finops_reporting'
 
     - deployment: 'nonprod_finops_law_dashboard'
-      environment: 'nonprod'
+      environment: 'dev'
       component: 'finops-law-dashboard'
       service_connection: 'DCD-CNP-DEV'
       dependsOn: 'Precheck'
