@@ -29,7 +29,7 @@ resource "azurerm_portal_dashboard" "my-board" {
                         "settings": {
                             "content": {
                                 "settings": {
-                                    "content": "${testmdcontent}",
+                                    "content": "test1",
                                     "subtitle": "",
                                     "title": ""
                                 }
@@ -52,7 +52,7 @@ resource "azurerm_portal_dashboard" "my-board" {
                                 "settings": {
                                     "title": "Important Information",
                                     "subtitle": "",
-                                    "src": "${test2video}",
+                                    "src": "test2",
                                     "autoplay": true
                                 }
                             }
