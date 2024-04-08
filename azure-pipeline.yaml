@@ -66,19 +66,19 @@ parameters:
       environment: 'test'
       component: 'law-finops-dashboard'
       service_connection: 'DCD-CNP-QA'
-      dependsOn: 'Precheck'
+      dependsOn: 'sbox_law_finops_dashboard'
     
     - deployment: 'nonprod_law_finops_dashboard'
       environment: 'dev'
       component: 'law-finops-dashboard'
       service_connection: 'DCD-CNP-DEV'
-      dependsOn: 'Precheck'
+      dependsOn: 'qa_law_finops_dashboard'
 
     - deployment: 'prod_law_finops_dashboard'
       environment: 'prod'
       component: 'law-finops-dashboard'
       service_connection: 'DCD-CNP-Prod'
-      dependsOn: 'Precheck'
+      dependsOn: 'nonprod_law_finops_dashboard'
 
 
 stages:
