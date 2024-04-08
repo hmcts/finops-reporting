@@ -1,23 +1,11 @@
 resource "azurerm_resource_group" "finops-law-dashboard-rg" {
   name     = "finops-law-dashboard-${var.env}-rg"
   location = var.location
-
-  tags = module.ctags.common_tags
+  tags     = module.ctags.common_tags
 }
-
-variable "law" {
-  description = "Content for the MD tile"
-  default     = "hmcts-nonprod"
-}
-
-variable "costpergb" {
-  description = "Content for the MD tile"
-  default     = "3.23"
-}
-
 
 resource "azurerm_portal_dashboard" "my-board" {
-  name                 = "my-cool-dashboard"
+  name                 = "LAW FinOps Dashboard ${var.env}"
   resource_group_name  = azurerm_resource_group.finops-law-dashboard-rg.name
   location             = azurerm_resource_group.finops-law-dashboard-rg.location
   tags                 = module.ctags.common_tags
@@ -48,7 +36,7 @@ resource "azurerm_portal_dashboard" "my-board" {
                   "name": "Scope",
                   "value": {
                     "resourceIds": [
-                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${var.law}"
+                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${var.law_name}"
                     ]
                   },
                   "isOptional": true
@@ -96,7 +84,7 @@ resource "azurerm_portal_dashboard" "my-board" {
                 },
                 {
                   "name": "PartSubTitle",
-                  "value": "${var.law}",
+                  "value": "${var.law_name}",
                   "isOptional": true
                 },
                 {
@@ -148,7 +136,7 @@ resource "azurerm_portal_dashboard" "my-board" {
                   "name": "Scope",
                   "value": {
                     "resourceIds": [
-                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${var.law}"
+                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${var.law_name}"
                     ]
                   },
                   "isOptional": true
@@ -196,7 +184,7 @@ resource "azurerm_portal_dashboard" "my-board" {
                 },
                 {
                   "name": "PartSubTitle",
-                  "value": "${var.law}",
+                  "value": "${var.law_name}",
                   "isOptional": true
                 },
                 {
@@ -251,7 +239,7 @@ resource "azurerm_portal_dashboard" "my-board" {
                   "name": "Scope",
                   "value": {
                     "resourceIds": [
-                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${var.law}"
+                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${var.law_name}"
                     ]
                   },
                   "isOptional": true
@@ -299,7 +287,7 @@ resource "azurerm_portal_dashboard" "my-board" {
                 },
                 {
                   "name": "PartSubTitle",
-                  "value": "${var.law}",
+                  "value": "${var.law_name}",
                   "isOptional": true
                 },
                 {
