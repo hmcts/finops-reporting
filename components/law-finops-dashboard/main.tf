@@ -4,16 +4,12 @@ resource "azurerm_resource_group" "law-finops-dashboard-rg" {
   tags     = module.ctags.common_tags
 }
 
-data "template_file" "dash-template" {
-  template = file("${path.module}/dash.tpl")
-}
-
 resource "azurerm_portal_dashboard" "law-finops-dashboard" {
   name                 = "${var.law_name}-law-finops-dashboard"
   resource_group_name  = azurerm_resource_group.law-finops-dashboard-rg.name
   location             = azurerm_resource_group.law-finops-dashboard-rg.location
   tags                 = module.ctags.common_tags
-  dashboard_properties = data.template_file.dash-template.rendered
+  dashboard_properties = templatefile("dash.tpl")
 }
 
 module "ctags" {
