@@ -1,3 +1,3 @@
-environment = "dev"
-law_name    = "hmcts_nonprod"
+environment = "sbox"
+law_name    = "hmcts_sbox"
 

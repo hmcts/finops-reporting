@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "finops-law-dashboard-rg" {
 }
 
 resource "azurerm_portal_dashboard" "my-board" {
-  name                 = "LAW FinOps Dashboard ${var.law_name}"
+  name                 = "LAW-FinOps-Dashboard-${var.law_name}"
   resource_group_name  = azurerm_resource_group.finops-law-dashboard-rg.name
   location             = azurerm_resource_group.finops-law-dashboard-rg.location
   tags                 = module.ctags.common_tags
