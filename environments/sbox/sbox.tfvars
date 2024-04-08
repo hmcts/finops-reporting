@@ -1,3 +1,3 @@
 environment = "sbox"
-law_name    = "hmcts_sbox"
+law_name    = "hmcts-sbox"
 
