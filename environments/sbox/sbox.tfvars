@@ -1,2 +1,3 @@
-env      = "sbox"
-law_name = "hmcts_nonprod"
+environment = "dev"
+law_name    = "hmcts_nonprod"
+
