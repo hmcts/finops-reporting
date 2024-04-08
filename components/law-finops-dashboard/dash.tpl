@@ -24,7 +24,7 @@
                   "name": "Scope",
                   "value": {
                     "resourceIds": [
-                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${var.law_name}"
+                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${law_name}"
                     ]
                   },
                   "isOptional": true
@@ -72,7 +72,7 @@
                 },
                 {
                   "name": "PartSubTitle",
-                  "value": "${var.law_name}",
+                  "value": "${law_name}",
                   "isOptional": true
                 },
                 {
@@ -97,7 +97,7 @@
                     "ResourceGroup": "161px",
                     "DataIngestionCosts": "182px"
                   },
-                  "Query": "find where TimeGenerated between(startofday(ago(30d)) .. startofday(now())) project _ResourceId, _BilledSize, _IsBillable, ResourceType\n| where _IsBillable == true \n| summarize BillableDataBytes = sum(_BilledSize) by _ResourceId\n| extend ResourceName = tostring(split(_ResourceId, \"/\")[8])\n| extend ResourceProvider = tostring(split(_ResourceId, \"/\")[6])\n| extend ResourceType = tostring(split(_ResourceId, \"/\")[7])\n| extend ResourceGroup = tostring(split(_ResourceId, \"/\")[4])\n| summarize BillableDataBytes = sum(BillableDataBytes) by ResourceGroup\n| extend DataIngestedInGB = round(BillableDataBytes / 1024 / 1024 / 1024, 2)\n| extend DataIngestionCosts = strcat(\"£\", round(DataIngestedInGB * ${var.costpergb}, 2))\n| project-away BillableDataBytes\n| sort by DataIngestedInGB desc \n\n",
+                  "Query": "find where TimeGenerated between(startofday(ago(30d)) .. startofday(now())) project _ResourceId, _BilledSize, _IsBillable, ResourceType\n| where _IsBillable == true \n| summarize BillableDataBytes = sum(_BilledSize) by _ResourceId\n| extend ResourceName = tostring(split(_ResourceId, \"/\")[8])\n| extend ResourceProvider = tostring(split(_ResourceId, \"/\")[6])\n| extend ResourceType = tostring(split(_ResourceId, \"/\")[7])\n| extend ResourceGroup = tostring(split(_ResourceId, \"/\")[4])\n| summarize BillableDataBytes = sum(BillableDataBytes) by ResourceGroup\n| extend DataIngestedInGB = round(BillableDataBytes / 1024 / 1024 / 1024, 2)\n| extend DataIngestionCosts = strcat(\"£\", round(DataIngestedInGB * ${costpergb}, 2))\n| project-away BillableDataBytes\n| sort by DataIngestedInGB desc \n\n",
                   "PartTitle": "Logging Ingestion Costs by Resource Group"
                 }
               }
@@ -124,7 +124,7 @@
                   "name": "Scope",
                   "value": {
                     "resourceIds": [
-                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${var.law_name}"
+                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${law_name}"
                     ]
                   },
                   "isOptional": true
@@ -172,7 +172,7 @@
                 },
                 {
                   "name": "PartSubTitle",
-                  "value": "${var.law_name}",
+                  "value": "${law_name}",
                   "isOptional": true
                 },
                 {
@@ -200,7 +200,7 @@
                     "ResourceName": "281px",
                     "DataIngestionCosts": "170px"
                   },
-                  "Query": "find where TimeGenerated between(startofday(ago(30d)) .. startofday(now())) project _ResourceId, _BilledSize, _IsBillable, ResourceType\n| where _IsBillable == true \n| summarize BillableDataBytes = sum(_BilledSize) by _ResourceId\n| extend ResourceName = tostring(split(_ResourceId, \"/\")[8])\n| extend ResourceProvider = tostring(split(_ResourceId, \"/\")[6])\n| extend ResourceType = tostring(split(_ResourceId, \"/\")[7])\n| extend ResourceGroup = tostring(split(_ResourceId, \"/\")[4])\n| summarize BillableDataBytes = sum(BillableDataBytes) by ResourceName, ResourceProvider, ResourceType, ResourceGroup\n| extend DataIngestedInGB = round(BillableDataBytes / 1024 / 1024 / 1024, 2)\n| extend DataIngestionCosts = strcat(\"£\", round(DataIngestedInGB * ${var.costpergb}, 2))\n| project-away BillableDataBytes\n| sort by DataIngestedInGB desc \n\n",
+                  "Query": "find where TimeGenerated between(startofday(ago(30d)) .. startofday(now())) project _ResourceId, _BilledSize, _IsBillable, ResourceType\n| where _IsBillable == true \n| summarize BillableDataBytes = sum(_BilledSize) by _ResourceId\n| extend ResourceName = tostring(split(_ResourceId, \"/\")[8])\n| extend ResourceProvider = tostring(split(_ResourceId, \"/\")[6])\n| extend ResourceType = tostring(split(_ResourceId, \"/\")[7])\n| extend ResourceGroup = tostring(split(_ResourceId, \"/\")[4])\n| summarize BillableDataBytes = sum(BillableDataBytes) by ResourceName, ResourceProvider, ResourceType, ResourceGroup\n| extend DataIngestedInGB = round(BillableDataBytes / 1024 / 1024 / 1024, 2)\n| extend DataIngestionCosts = strcat(\"£\", round(DataIngestedInGB * ${costpergb}, 2))\n| project-away BillableDataBytes\n| sort by DataIngestedInGB desc \n\n",
                   "PartTitle": "Logging Ingestion Costs by Resource"
                 }
               }
@@ -227,7 +227,7 @@
                   "name": "Scope",
                   "value": {
                     "resourceIds": [
-                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${var.law_name}"
+                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${law_name}"
                     ]
                   },
                   "isOptional": true
@@ -275,7 +275,7 @@
                 },
                 {
                   "name": "PartSubTitle",
-                  "value": "${var.law_name}",
+                  "value": "${law_name}",
                   "isOptional": true
                 },
                 {
@@ -304,7 +304,7 @@
                     "ResourceType": "166px",
                     "DataIngestionCosts": "173px"
                   },
-                  "Query": "find where TimeGenerated between(startofday(ago(30d)) .. startofday(now())) project _ResourceId, _BilledSize, _IsBillable, ResourceType, Type\n| where _IsBillable == true \n| summarize BillableDataBytes = sum(_BilledSize) by _ResourceId, Type\n| extend ResourceName = tostring(split(_ResourceId, \"/\")[8])\n| extend ResourceProvider = tostring(split(_ResourceId, \"/\")[6])\n| extend ResourceType = tostring(split(_ResourceId, \"/\")[7])\n| extend ResourceGroup = tostring(split(_ResourceId, \"/\")[4])\n| summarize BillableDataBytes = sum(BillableDataBytes) by ResourceName, ResourceProvider, ResourceType, ResourceGroup, Type\n| extend DataIngestedInGB = round(BillableDataBytes / 1024 / 1024 / 1024, 2)\n| extend DataIngestionCosts = strcat(\"£\", round(DataIngestedInGB * ${var.costpergb}, 2))\n| project-away BillableDataBytes\n| sort by DataIngestedInGB desc\n\n",
+                  "Query": "find where TimeGenerated between(startofday(ago(30d)) .. startofday(now())) project _ResourceId, _BilledSize, _IsBillable, ResourceType, Type\n| where _IsBillable == true \n| summarize BillableDataBytes = sum(_BilledSize) by _ResourceId, Type\n| extend ResourceName = tostring(split(_ResourceId, \"/\")[8])\n| extend ResourceProvider = tostring(split(_ResourceId, \"/\")[6])\n| extend ResourceType = tostring(split(_ResourceId, \"/\")[7])\n| extend ResourceGroup = tostring(split(_ResourceId, \"/\")[4])\n| summarize BillableDataBytes = sum(BillableDataBytes) by ResourceName, ResourceProvider, ResourceType, ResourceGroup, Type\n| extend DataIngestedInGB = round(BillableDataBytes / 1024 / 1024 / 1024, 2)\n| extend DataIngestionCosts = strcat(\"£\", round(DataIngestedInGB * ${costpergb}, 2))\n| project-away BillableDataBytes\n| sort by DataIngestedInGB desc\n\n",
                   "PartTitle": "Logging Ingestion Costs by Resource and Log Type"
                 }
               }

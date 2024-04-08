@@ -5,11 +5,15 @@ resource "azurerm_resource_group" "law-finops-dashboard-rg" {
 }
 
 resource "azurerm_portal_dashboard" "law-finops-dashboard" {
-  name                 = "${var.law_name}-law-finops-dashboard"
-  resource_group_name  = azurerm_resource_group.law-finops-dashboard-rg.name
-  location             = azurerm_resource_group.law-finops-dashboard-rg.location
-  tags                 = module.ctags.common_tags
-  dashboard_properties = templatefile("dash.tpl")
+  name                = "${var.law_name}-law-finops-dashboard"
+  resource_group_name = azurerm_resource_group.law-finops-dashboard-rg.name
+  location            = azurerm_resource_group.law-finops-dashboard-rg.location
+  tags                = module.ctags.common_tags
+  dashboard_properties = templatefile("dash.tpl",
+    {
+      law_name  = var.law_name,
+      costpergb = var.costpergb
+  })
 }
 
 module "ctags" {
