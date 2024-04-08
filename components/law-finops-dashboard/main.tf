@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "law-finops-dashboard-rg" {
 }
 
 data "template_file" "dash-template" {
-  template = "${file("${path.module}/dash.tpl")}"
+  template = file("${path.module}/dash.tpl")
 }
 
 resource "azurerm_portal_dashboard" "law-finops-dashboard" {
