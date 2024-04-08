@@ -1,3 +1,3 @@
 environment = "dev"
-law_name    = "hmcts_nonprod"
+law_name    = "hmcts-nonprod"
 
