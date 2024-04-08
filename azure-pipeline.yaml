@@ -56,9 +56,9 @@ parameters:
       storage_account_name: 'cftptlintsvc'
       dependsOn: 'sbox_finops_reporting'
 
-    - deployment: 'nonprod_finops_law_dashboard'
+    - deployment: 'nonprod_law_finops_dashboard'
       environment: 'dev'
-      component: 'finops-law-dashboard'
+      component: 'law-finops-dashboard'
       service_connection: 'DCD-CNP-DEV'
       dependsOn: 'Precheck'
 

@@ -1,13 +1,13 @@
-resource "azurerm_resource_group" "finops-law-dashboard-rg" {
-  name     = "finops-law-dashboard-${var.env}-rg"
+resource "azurerm_resource_group" "law-finops-dashboard-rg" {
+  name     = "law-finops-dashboard-${var.env}-rg"
   location = var.location
   tags     = module.ctags.common_tags
 }
 
 resource "azurerm_portal_dashboard" "my-board" {
-  name                 = "${var.law_name}-finops-law-dashboard"
-  resource_group_name  = azurerm_resource_group.finops-law-dashboard-rg.name
-  location             = azurerm_resource_group.finops-law-dashboard-rg.location
+  name                 = "${var.law_name}-law-finops-dashboard"
+  resource_group_name  = azurerm_resource_group.law-finops-dashboard-rg.name
+  location             = azurerm_resource_group.law-finops-dashboard-rg.location
   tags                 = module.ctags.common_tags
   dashboard_properties = <<DASH
 {
