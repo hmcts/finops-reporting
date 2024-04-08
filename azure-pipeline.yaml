@@ -63,7 +63,7 @@ parameters:
       dependsOn: 'Precheck'
 
     - deployment: 'qa_law_finops_dashboard'
-      environment: 'qa'
+      environment: 'test'
       component: 'law-finops-dashboard'
       service_connection: 'DCD-CNP-QA'
       dependsOn: 'Precheck'
