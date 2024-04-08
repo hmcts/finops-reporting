@@ -24,7 +24,7 @@
                   "name": "Scope",
                   "value": {
                     "resourceIds": [
-                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${law_name}"
+                      "/subscriptions/${law_subscription_id}/resourcegroups/${law_resource_group}/providers/microsoft.operationalinsights/workspaces/${law_name}"
                     ]
                   },
                   "isOptional": true
@@ -124,7 +124,7 @@
                   "name": "Scope",
                   "value": {
                     "resourceIds": [
-                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${law_name}"
+                      "/subscriptions/${law_subscription_id}/resourcegroups/${law_resource_group}/providers/microsoft.operationalinsights/workspaces/${law_name}"
                     ]
                   },
                   "isOptional": true
@@ -227,7 +227,7 @@
                   "name": "Scope",
                   "value": {
                     "resourceIds": [
-                      "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9/resourcegroups/oms-automation/providers/microsoft.operationalinsights/workspaces/${law_name}"
+                      "/subscriptions/${law_subscription_id}/resourcegroups/${law_resource_group}/providers/microsoft.operationalinsights/workspaces/${law_name}"
                     ]
                   },
                   "isOptional": true

@@ -4,7 +4,14 @@
 
 
 variable "law_name" {
-  description = "Name of the Target Log Analytics Workspace"
+  description = "Name of the Log Analytics Workspace"
+}
+
+variable "law_resource_group" {
+  description = "Resource Group on which the Log Analytics Workspace Resides"
+}
+variable "law_subscription_id" {
+  description = "Subscription ID of the Log Analytics Workspace"
 }
 
 variable "costpergb" {

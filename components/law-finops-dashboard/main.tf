@@ -11,8 +11,10 @@ resource "azurerm_portal_dashboard" "law-finops-dashboard" {
   tags                = module.ctags.common_tags
   dashboard_properties = templatefile("dash.tpl",
     {
-      law_name  = var.law_name,
-      costpergb = var.costpergb
+      law_name            = var.law_name,
+      law_resource_group  = var.law_resource_group,
+      law_subscription_id = var.law_subscription_id,
+      costpergb           = var.costpergb
   })
 }
 
