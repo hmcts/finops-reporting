@@ -14,4 +14,4 @@ The dashboards will be created in their own dedicated Resource Group.
 
 The properties and the functions of the dashboard are defined within the dash.tpl file. The quickest way of generating this file for a new dashboard is to create the dashboard manually on test dashboard via the Azure portal and then export the configuration for reuse as code. The exported configuration can be parameterized for efficient reuse across multiple environments. Inspect the dash.tpl file and the dashboard_properties code block on the main.tf file for real examples of how this is done.
 
-Further information on this solution can be found here https://medium.com/@mbnarayn/itemising-the-costs-for-your-azure-log-analytics-workspace-0522ff05df95
+Further information on this solution can be found [here] (https://medium.com/@mbnarayn/itemising-the-costs-for-your-azure-log-analytics-workspace-0522ff05df95).
