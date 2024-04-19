@@ -16,5 +16,5 @@ variable "law_subscription_id" {
 
 variable "costpergb" {
   description = "Data Ingestion Cost Per GB in £"
-  default     = "1.92"
+  default     = "1.15"
 }
