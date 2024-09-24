@@ -12,7 +12,7 @@ resource "azurerm_logic_app_workflow" "finopslogicapp" {
   }
 
   depends_on = [
-    azurerm_user_assigned_identity.finopslogicapp-mi
+    azurerm_user_assigned_identity.finopslogicapp-mi[0].id
   ]
 }
 
@@ -28,14 +28,14 @@ resource "azurerm_role_assignment" "finopslogicapp-sa" {
   count                = var.env == "ptl" ? 1 : 0
   scope                = azurerm_storage_account.finopssa.id
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azurerm_user_assigned_identity.finopslogicapp-mi.principal_id
+  principal_id         = azurerm_user_assigned_identity.finopslogicapp-mi[0].principal_id
 }
 
 resource "azurerm_role_assignment" "finopslogicapp-la" {
   count                = var.env == "ptl" ? 1 : 0
   scope                = azurerm_log_analytics_workspace.loganalytics.id
   role_definition_name = "Log Analytics Reader"
-  principal_id         = azurerm_user_assigned_identity.finopslogicapp-mi.principal_id
+  principal_id         = azurerm_user_assigned_identity.finopslogicapp-mi[0].principal_id
 
   provider = azurerm.log_analytics
 }
