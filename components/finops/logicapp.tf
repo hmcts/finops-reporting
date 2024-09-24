@@ -10,6 +10,10 @@ resource "azurerm_logic_app_workflow" "finopslogicapp" {
     type         = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.finopslogicapp-mi.id]
   }
+
+  depends_on = [
+    azurerm_user_assigned_identity.finopslogicapp-mi
+  ]
 }
 
 resource "azurerm_user_assigned_identity" "finopslogicapp-mi" {
@@ -17,10 +21,7 @@ resource "azurerm_user_assigned_identity" "finopslogicapp-mi" {
   resource_group_name = azurerm_resource_group.finopsrg.name
   location            = azurerm_resource_group.finopsrg.location
   name                = "finopslogicapp-${var.env}-mi"
-
-  tags = module.ctags.common_tags
-
-  depends_on = [azurerm_user_assigned_identity.tamops-logicapp]
+  tags                = module.ctags.common_tags
 }
 
 resource "azurerm_role_assignment" "finopslogicapp-sa" {
