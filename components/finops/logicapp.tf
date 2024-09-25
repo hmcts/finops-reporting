@@ -40,4 +40,6 @@ data "azurerm_log_analytics_workspace" "loganalytics" {
   count               = var.env == "ptl" ? 1 : 0
   name                = var.env == "ptl" ? "hmcts-prod" : "hmcts-nonprod"
   resource_group_name = "oms-automation"
+
+  provider = azurerm.log_analytics
 }
