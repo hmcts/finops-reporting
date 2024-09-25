@@ -8,12 +8,8 @@ resource "azurerm_logic_app_workflow" "finopslogicapp" {
 
   identity {
     type         = "UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.finopslogicapp-mi.id]
+    identity_ids = [azurerm_user_assigned_identity.finopslogicapp-mi[0].id]
   }
-
-  depends_on = [
-    azurerm_user_assigned_identity.finopslogicapp-mi[0].id
-  ]
 }
 
 resource "azurerm_user_assigned_identity" "finopslogicapp-mi" {
@@ -33,7 +29,7 @@ resource "azurerm_role_assignment" "finopslogicapp-sa" {
 
 resource "azurerm_role_assignment" "finopslogicapp-la" {
   count                = var.env == "ptl" ? 1 : 0
-  scope                = azurerm_log_analytics_workspace.loganalytics.id
+  scope                = data.azurerm_log_analytics_workspace.loganalytics.id
   role_definition_name = "Log Analytics Reader"
   principal_id         = azurerm_user_assigned_identity.finopslogicapp-mi[0].principal_id
 
@@ -42,6 +38,6 @@ resource "azurerm_role_assignment" "finopslogicapp-la" {
 
 data "azurerm_log_analytics_workspace" "loganalytics" {
   count               = var.env == "ptl" ? 1 : 0
-  name                = var.env == "ptl" ? "hmcts-prod" : hmcts-nonprod
+  name                = var.env == "ptl" ? "hmcts-prod" : "hmcts-nonprod"
   resource_group_name = "oms-automation"
 }
