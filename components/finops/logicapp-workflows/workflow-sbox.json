@@ -1,0 +1,153 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "logic_app_name": {
+            "type": "String"
+        },
+
+        "location": {
+            "defaultValue": "uksouth",
+            "type": "String"
+        }
+     },
+    "variables": {
+      
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('logic_app_name')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "state": "Enabled",
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Create_CSV_table": {
+                "inputs": {
+                    "format": "CSV",
+                    "from": "@body('Run_query_and_list_results')?['value']"
+                },
+                "runAfter": {
+                    "Run_query_and_list_results": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Table"
+            },
+            "Create_blob_(V2)": {
+                "inputs": {
+                    "body": "@body('Create_CSV_table')",
+                    "headers": {
+                        "ReadFileMetadataFromServer": true
+                    },
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['azureblob']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('finopsdatasboxsa'))}/files",
+                    "queries": {
+                        "folderPath": "/loganalytics-hmcts-sbox",
+                        "name": "hmcts-sbox-@{utcNow()}.sv",
+                        "queryParametersSingleEncoded": true
+                    }
+                },
+                "runAfter": {
+                    "Create_CSV_table": [
+                        "Succeeded"
+                    ]
+                },
+                "runtimeConfiguration": {
+                    "contentTransfer": {
+                        "transferMode": "Chunked"
+                    }
+                },
+                "type": "ApiConnection"
+            },
+            "Run_query_and_list_results": {
+                "inputs": {
+                    "body": "find where TimeGenerated between(startofday(ago(30d)) .. startofday(now())) project _ResourceId, _BilledSize, _IsBillable, ResourceType, Type\n| where _IsBillable == true \n| summarize BillableDataBytes = sum(_BilledSize) by _ResourceId, Type\n| extend ResourceName = tostring(split(_ResourceId, \"/\")[8])\n| extend ResourceProvider = tostring(split(_ResourceId, \"/\")[6])\n| extend ResourceType = tostring(split(_ResourceId, \"/\")[7])\n| extend ResourceGroup = tostring(split(_ResourceId, \"/\")[4])\n| summarize BillableDataBytes = sum(BillableDataBytes) by ResourceName, ResourceProvider, ResourceType, ResourceGroup, Type\n| extend DataIngestedInGB = round(BillableDataBytes / 1000 / 1000 / 1000, 2)\n| extend DataIngestionCosts = strcat(\"£\", round(DataIngestedInGB * 1.15, 2))\n| project-away BillableDataBytes\n| sort by DataIngestedInGB desc\n",
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['azuremonitorlogs']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/queryData",
+                    "queries": {
+                        "resourcegroups": "oms-automation",
+                        "resourcename": "hmcts-sandbox",
+                        "resourcetype": "Log Analytics Workspace",
+                        "subscriptions": "bf308a5c-0624-4334-8ff8-8dca9fd43783",
+                        "timerange": "Set in query"
+                    }
+                },
+                "runAfter": {},
+                "type": "ApiConnection"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "Recurrence": {
+                "evaluatedRecurrence": {
+                    "frequency": "Month",
+                    "interval": 1,
+                    "startTime": "2024/10/01T00:00:00Z",
+                    "timeZone": "GMT Standard Time"
+                },
+                "recurrence": {
+                    "frequency": "Month",
+                    "interval": 1,
+                    "startTime": "2024/10/01T00:00:00Z",
+                    "timeZone": "GMT Standard Time"
+                },
+                "type": "Recurrence"
+            }
+        }
+    },
+    "parameters": {
+        "$connections": {
+            "value": {
+                "azureblob": {
+                    "connectionId": "/subscriptions/b72ab7b7-723f-4b18-b6f6-03b0f2c6a1bb/resourceGroups/finopsdatasboxrg/providers/Microsoft.Web/connections/azureblob",
+                    "connectionName": "azureblob",
+                    "connectionProperties": {
+                        "authentication": {
+                            "identity": "/subscriptions/b72ab7b7-723f-4b18-b6f6-03b0f2c6a1bb/resourceGroups/finopsdatasboxrg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/finopslogicapp-sbox-mi",
+                            "type": "ManagedServiceIdentity"
+                        }
+                    },
+                    "id": "/subscriptions/b72ab7b7-723f-4b18-b6f6-03b0f2c6a1bb/providers/Microsoft.Web/locations/uksouth/managedApis/azureblob"
+                },
+                "azuremonitorlogs": {
+                    "connectionId": "/subscriptions/b72ab7b7-723f-4b18-b6f6-03b0f2c6a1bb/resourceGroups/finopsdatasboxrg/providers/Microsoft.Web/connections/azuremonitorlogs",
+                    "connectionName": "azuremonitorlogs",
+                    "connectionProperties": {
+                        "authentication": {
+                            "identity": "/subscriptions/b72ab7b7-723f-4b18-b6f6-03b0f2c6a1bb/resourceGroups/finopsdatasboxrg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/finopslogicapp-sbox-mi",
+                            "type": "ManagedServiceIdentity"
+                        }
+                    },
+                    "id": "/subscriptions/b72ab7b7-723f-4b18-b6f6-03b0f2c6a1bb/providers/Microsoft.Web/locations/uksouth/managedApis/azuremonitorlogs"
+                }
+            }
+        }
+    }
+            }
+        }
+        
+    ],
+    "outputs": {
+     }
+}
+
