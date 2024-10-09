@@ -12,7 +12,8 @@ resource "azurerm_logic_app_workflow" "finopslogicapp" {
 
   lifecycle {
     ignore_changes = [
-      parameters
+      parameters,
+      workflow_parameters
     ]
   }
 
