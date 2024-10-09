@@ -60,12 +60,10 @@ resource "azurerm_role_assignment" "finopslogicapp-la-hmctssbox" {
   scope                = data.azurerm_log_analytics_workspace.loganalytics-hmctssbox[0].id
   role_definition_name = "Log Analytics Reader"
   principal_id         = azurerm_user_assigned_identity.finopslogicapp-mi.principal_id
-
-  provider = azurerm.log_analytics_hmctsprod
 }
 
 data "azurerm_log_analytics_workspace" "loganalytics-hmctssbox" {
   count               = var.env == "sbox" ? 1 : 0
-  name                = "hmcts-sbox-law"
-  resource_group_name = "oms-automation-rg"
+  name                = "hmcts-sandbox"
+  resource_group_name = "oms-automation"
 }
