@@ -31,7 +31,7 @@ resource "azurerm_resource_group_template_deployment" "logic_app_deployment" {
   deployment_mode     = "Incremental"
   name                = "logic-app-deployment"
 
-  template_content = data.local_file.logic_app.content
+  template_content = data.local_file.logic_app[0].content
 
   parameters_content = jsonencode({
     "logic_app_name" = { value = azurerm_logic_app_workflow.finopslogicapp.name }
