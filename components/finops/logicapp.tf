@@ -8,12 +8,11 @@ resource "azurerm_logic_app_workflow" "finopslogicapp" {
 
   identity {
     type         = "UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.finopslogicapp-mi[0].id]
+    identity_ids = [azurerm_user_assigned_identity.finopslogicapp-mi.id]
   }
 }
 
 resource "azurerm_user_assigned_identity" "finopslogicapp-mi" {
-  count               = var.env == "ptl" ? 1 : 0
   resource_group_name = azurerm_resource_group.finopsrg.name
   location            = azurerm_resource_group.finopsrg.location
   name                = "finopslogicapp-${var.env}-mi"
@@ -22,7 +21,7 @@ resource "azurerm_user_assigned_identity" "finopslogicapp-mi" {
 
 data "local_file" "logic_app" {
   count    = var.env == "ptl" ? 1 : 0
-  filename = "${path.module}/workflow-${var.env}.json"
+  filename = "${path.module}/logicapp-workflows/workflow-${var.env}.json"
 }
 
 resource "azurerm_resource_group_template_deployment" "logic_app_deployment" {
