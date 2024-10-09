@@ -1,5 +1,4 @@
 resource "azurerm_logic_app_workflow" "finopslogicapp" {
-  count               = var.env == "ptl" ? 1 : 0
   name                = "finopsdata${var.env}logicapp"
   location            = azurerm_resource_group.finopsrg.location
   resource_group_name = azurerm_resource_group.finopsrg.name
@@ -33,9 +32,9 @@ resource "azurerm_resource_group_template_deployment" "logic_app_deployment" {
   template_content = data.local_file.logic_app[0].content
 
   parameters_content = jsonencode({
-    "logic_app_name" = { value = azurerm_logic_app_workflow.finopslogicapp[0].name }
-    "location"       = { value = azurerm_logic_app_workflow.finopslogicapp[0].location }
+    "logic_app_name" = { value = azurerm_logic_app_workflow.finopslogicapp.name }
+    "location"       = { value = azurerm_logic_app_workflow.finopslogicapp.location }
   })
 
-  depends_on = [azurerm_logic_app_workflow.finopslogicapp[0]]
+  depends_on = [azurerm_logic_app_workflow.finopslogicapp]
 }

@@ -4,7 +4,7 @@ resource "azurerm_role_assignment" "finopslogicapp-sa" {
   principal_id         = azurerm_user_assigned_identity.finopslogicapp-mi.principal_id
 }
 
-resource "azurerm_role_assignment" "finopslogicapp-la-hmctsprod" {
+resource "azurerm_role_assignment" "finopslogicapp-la" {
   count                = var.env == "ptl" ? 1 : 0
   scope                = data.azurerm_log_analytics_workspace.loganalytics-hmctsprod[0].id
   role_definition_name = "Log Analytics Reader"
