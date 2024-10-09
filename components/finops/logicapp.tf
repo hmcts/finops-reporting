@@ -34,9 +34,9 @@ resource "azurerm_resource_group_template_deployment" "logic_app_deployment" {
   template_content = data.local_file.logic_app[0].content
 
   parameters_content = jsonencode({
-    "logic_app_name" = { value = azurerm_logic_app_workflow.finopslogicapp.name }
-    "location"       = { value = azurerm_logic_app_workflow.finopslogicapp.location }
+    "logic_app_name" = { value = azurerm_logic_app_workflow.finopslogicapp[0].name }
+    "location"       = { value = azurerm_logic_app_workflow.finopslogicapp[0].location }
   })
 
-  depends_on = [azurerm_logic_app_workflow.finopslogicapp]
+  depends_on = [azurerm_logic_app_workflow.finopslogicapp[0]]
 }
