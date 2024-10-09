@@ -9,6 +9,13 @@ resource "azurerm_logic_app_workflow" "finopslogicapp" {
     type         = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.finopslogicapp-mi.id]
   }
+
+  lifecycle {
+    ignore_changes = [
+      parameters
+    ]
+  }
+
 }
 
 resource "azurerm_user_assigned_identity" "finopslogicapp-mi" {
