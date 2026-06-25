@@ -1,3 +1,10 @@
+resource "azurerm_role_assignment" "martin_sherwood_finops_sa_reader" {
+  count                = var.env == "ptl" ? 1 : 0
+  scope                = azurerm_storage_account.finopssa.id
+  role_definition_name = "Storage Blob Data Reader"
+  principal_id         = "761df246-7c31-435f-baa1-dc74b3a16a8b"
+}
+
 resource "azurerm_role_assignment" "finopslogicapp-sa" {
   scope                = azurerm_storage_account.finopssa.id
   role_definition_name = "Storage Blob Data Contributor"
