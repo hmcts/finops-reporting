@@ -31,3 +31,4 @@ The costs are determined through a numerical calculation, necessitating the adju
 ## Further Information
 
 Further information on this solution can be found [here](https://medium.com/@mbnarayn/itemising-the-costs-for-your-azure-log-analytics-workspace-0522ff05df95).
+ 
