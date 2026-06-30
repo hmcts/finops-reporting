@@ -71,3 +71,15 @@ data "azurerm_log_analytics_workspace" "loganalytics-hmctssbox" {
 
   provider = azurerm.log_analytics_hmctssbox
 }
+
+data "azuread_group" "finops-blob-reader" {
+  count        = var.env == "ptl" ? 1 : 0
+  display_name = "DTS FinOps Storage Blob Data Reader (env:ptl)"
+}
+
+resource "azurerm_role_assignment" "finops-blob-reader" {
+  count                = var.env == "ptl" ? 1 : 0
+  scope                = azurerm_storage_account.finopssa.id
+  role_definition_name = "Storage Blob Data Reader"
+  principal_id         = data.azuread_group.finops-blob-reader[0].object_id
+}
