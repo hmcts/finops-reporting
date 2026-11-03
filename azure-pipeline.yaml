@@ -43,7 +43,7 @@ parameters:
     - deployment: 'sbox_finops_reporting'
       environment: 'sbox'
       component: 'finops'
-      service_connection: 'dcd-cftapps-sbox'
+      service_connection: 'DCD-CFTAPPS-SBOX-WIF'
       storage_account_rg: 'core-infra-sbox-rg'
       storage_account_name: 'cftappssbox'
       dependsOn: 'Precheck'
@@ -51,7 +51,7 @@ parameters:
     - deployment: 'ptl_finops_reporting'
       environment: 'ptl'
       component: 'finops'
-      service_connection: 'DTS-CFTPTL-INTSVC'
+      service_connection: 'DTS-CFTPTL-INTSVC-WIF'
       storage_account_rg: 'core-infra-intsvc-rg'
       storage_account_name: 'cftptlintsvc'
       dependsOn: 'sbox_finops_reporting'
@@ -59,25 +59,25 @@ parameters:
     - deployment: 'sbox_law_finops_dashboard'
       environment: 'sbox'
       component: 'law-finops-dashboard'
-      service_connection: 'DCD-CFT-Sandbox'
+      service_connection: 'DCD-CFT-Sandbox-WIF'
       dependsOn: 'Precheck'
 
     - deployment: 'qa_law_finops_dashboard'
       environment: 'test'
       component: 'law-finops-dashboard'
-      service_connection: 'DCD-CNP-QA'
+      service_connection: 'DCD-CNP-QA-WIF'
       dependsOn: 'sbox_law_finops_dashboard'
     
     - deployment: 'nonprod_law_finops_dashboard'
       environment: 'dev'
       component: 'law-finops-dashboard'
-      service_connection: 'DCD-CNP-DEV'
+      service_connection: 'DCD-CNP-DEV-WIF'
       dependsOn: 'qa_law_finops_dashboard'
 
     - deployment: 'prod_law_finops_dashboard'
       environment: 'prod'
       component: 'law-finops-dashboard'
-      service_connection: 'DCD-CNP-Prod'
+      service_connection: 'DCD-CNP-Prod-WIF'
       dependsOn: 'nonprod_law_finops_dashboard'
 
 
@@ -93,7 +93,7 @@ stages:
             parameters:
               keyvaultName: 'infra-vault-nonprod'
               keyvaultSecret: 'azure-devops-sp-token'
-              serviceConnection: 'azurerm-sandbox'
+              serviceConnection: 'DCD-CFT-Sandbox-WIF'
               overrideAction: ${{ parameters.overrideAction }}
 
 
